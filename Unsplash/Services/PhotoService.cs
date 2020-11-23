@@ -1,35 +1,76 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Unsplash.Models;
+using Unsplash.Models.ViewModels;
 
 namespace Unsplash.Services
 {
     public class PhotoService : IPhotoService
+
     {
-        public Photo GetPhoto(int photoId)
+        public PhotoViewModel GetPhoto(int photoId)
         {
-            Photo photo;
-            using(UnsplashContext db =  new UnsplashContext())
+            PhotoViewModel photo;
+            using(UnsplashContext db = new UnsplashContext())
             {
-                photo = db.Photos select(new Photo)
+                photo = (from d in db.Photos 
+                        select new PhotoViewModel{
+                            Id = d.Id,
+                            Url = d.Url,
+                            CreatedAt = d.CreatedAt,
+                            Label = d.Label
+                }).FirstOrDefault();
             }
             return photo;
         }
-        public List<Photo> GetAllPhotos(int userId)
+        public List<PhotoViewModel> GetAllPhotos(int userId)
         {
-            throw new NotImplementedException();
+            List<PhotoViewModel> photos;
+            using(UnsplashContext db = new UnsplashContext())
+            {
+                photos = (from d in db.Photos
+                          where userId == d.IdUser
+                          select new PhotoViewModel
+                          {
+                              Id = d.Id,
+                              Url = d.Url,
+                              CreatedAt = d.CreatedAt,
+                              Label = d.Label
+                          }).ToList();
+            }
+            return photos;
         }
         public void DeletePhoto(int photoId)
         {
-            throw new NotImplementedException();
+            using (UnsplashContext db = new UnsplashContext())
+            {
+                Photo photo = db.Photos.Find(photoId);
+                db.Remove(photo);
+                db.SaveChanges();
+            }
         }
 
-        public List<Photo> FindPhotos(int userId, string label)
+        public List<PhotoViewModel> FindPhotos(int userId, string label)
         {
-            throw new NotImplementedException();
+            List<PhotoViewModel> photos;
+
+            using(UnsplashContext db = new UnsplashContext())
+            {
+                photos = (from d in db.Photos
+                          where d.IdUser == userId && d.Label == label
+                          select new PhotoViewModel
+                          {
+                              Id = d.Id,
+                              Url = d.Url,
+                              CreatedAt = d.CreatedAt,
+                              Label = d.Label
+                          }).ToList();
+               
+            }
+
+            return photos;
         }
-        
+
     }
 }
