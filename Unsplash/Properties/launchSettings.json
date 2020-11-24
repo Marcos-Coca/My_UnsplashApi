@@ -18,9 +18,7 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "API_KEY": "398138697665152",
-        "API_SECRET": "HlE8p5FFHt8frAcKMPgsXMaSwhg",
-        "CLOUD_NAME": "djhogcejw",
+        "$ref": "env.json#",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
@@ -29,9 +27,7 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "API_KEY": "398138697665152",
-        "API_SECRET": "HlE8p5FFHt8frAcKMPgsXMaSwhg",
-        "CLOUD_NAME": "djhogcejw",
+        "$ref": "env.json#",
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "dotnetRunMessages": "true",
