@@ -8,11 +8,13 @@ using Unsplash.Models.Request;
 using Microsoft.AspNetCore.Hosting;
 using Unsplash.Utils;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Unsplash.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PhotoController : ControllerBase
     {
         private IPhotoService _photoService;
@@ -29,7 +31,10 @@ namespace Unsplash.Controllers
             this._webHostEnvironment = webHostEnvironment;
             this._config = config;
         }
-
+/*        protected int GetUserId()
+        {
+            return int.Parse(User.Claims.FirstOrDefault();
+        }*/
         [HttpGet]
         public IActionResult GetAllPhotos(int userId,[FromQuery]string label)
         {
