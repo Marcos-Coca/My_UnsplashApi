@@ -46,7 +46,7 @@ namespace Unsplash.Services
             using (UnsplashContext db = new UnsplashContext())
             {
                 Photo photo = db.Photos.Find(photoId);
-                db.Remove(photo);
+                db.Photos.Remove(photo);
                 db.SaveChanges();
             }
         }
@@ -58,7 +58,7 @@ namespace Unsplash.Services
             using(UnsplashContext db = new UnsplashContext())
             {
                 photos = (from d in db.Photos
-                          where d.IdUser == userId && d.Label == label
+                          where d.IdUser == userId && d.Label.Contains(label)
                           select new PhotoViewModel
                           {
                               Id = d.Id,
@@ -72,5 +72,13 @@ namespace Unsplash.Services
             return photos;
         }
 
+        public void CreatePhoto(Photo photo)
+        {
+            using(UnsplashContext db = new UnsplashContext())
+            {
+                db.Photos.Add(photo);
+                db.SaveChanges();
+            }
+        }
     }
 }
