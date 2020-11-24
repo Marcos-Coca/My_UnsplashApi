@@ -18,8 +18,8 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "$ref": "env.json#",
         "ASPNETCORE_ENVIRONMENT": "Development"
+
       }
     },
     "Unsplash": {
@@ -27,7 +27,6 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "$ref": "env.json#",
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "dotnetRunMessages": "true",
